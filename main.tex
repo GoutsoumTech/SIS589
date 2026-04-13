@@ -1,0 +1,475 @@
+% ==============================================================================
+% Fichier     : main.tex
+% Titre       : Supervision, Analyse Forensique et Gestion des Incidents
+% Auteur      : MINKA MI NGUIDJOÏ Thierry Emmanuel
+% Institution : Université de Yaoundé I — Faculté des Sciences
+%               Département de Mathématiques-Informatique
+% Année       : 2025-2026
+% Description : Fichier principal de l'UE SIS589. Orchestre tous les chapitres,
+%               les laboratoires, la bibliographie et les éléments de couverture.
+%               Structuré en quatre parties thématiques + trois labs immersifs.
+% Compilateur : lualatex + biber (recommandé)
+%               → lualatex main && biber main && lualatex main && lualatex main
+%               Alternative : pdflatex + biber (même séquence)
+% ==============================================================================
+
+\documentclass[12pt, a4paper, twoside, openright]{book}
+
+% ==============================================================================
+% CHARGEMENT DE LA FEUILLE DE STYLE
+% ==============================================================================
+\usepackage{style}
+
+% ==============================================================================
+% BIBLIOGRAPHIE
+% ==============================================================================
+\addbibresource{bibliographie.bib}
+
+% ==============================================================================
+% MÉTADONNÉES PDF
+% ==============================================================================
+\hypersetup{
+    pdftitle   = {Supervision, Analyse Forensique et Gestion des Incidents},
+    pdfauthor  = {MINKA MI NGUIDJOÏ Thierry Emmanuel},
+    pdfsubject = {Support de Cours — SOC, SIEM, IDS, Forensics, IR, CERT},
+    pdfkeywords= {SOC, SIEM, IDS, Forensics, ISO 27035, CSIRT, CERT,
+                  Incident Response, Investigation Numérique, Cybersécurité,
+                  Université de Yaoundé I, SIS589}
+}
+
+% ==============================================================================
+% DÉBUT DU DOCUMENT
+% ==============================================================================
+\begin{document}
+
+% ------------------------------------------------------------------------------
+% 1. PAGE DE TITRE (1ÈRE DE COUVERTURE)
+% ------------------------------------------------------------------------------
+\begin{titlepage}
+\thispagestyle{empty}
+\pagecolor{CouleurPrimaire}
+
+\begin{tikzpicture}[remember picture, overlay]
+    % Bande accent en bas
+    \fill[CouleurAccent]
+        (current page.south west) rectangle
+        ([yshift=2.2cm] current page.south east);
+    % Ligne décorative en haut
+    \fill[CouleurAccent]
+        ([yshift=-1.5cm] current page.north west) rectangle
+        ([yshift=-1.8cm] current page.north east);
+    % Élément graphique — grille hex (évocation SOC/réseau)
+    \fill[white, opacity=0.03]
+        ([xshift=7.5cm, yshift=-5.5cm] current page.north west)
+        -- ++(5.5,0) -- ++(0,-5.5) -- ++(-5.5,0) -- cycle;
+    \fill[white, opacity=0.05]
+        ([xshift=9cm, yshift=-7cm] current page.north west)
+        -- ++(6.5,0) -- ++(0,-6.5) -- ++(-6.5,0) -- cycle;
+    % Accent diagonal
+    \fill[CouleurAccent, opacity=0.25]
+        ([xshift=13cm, yshift=0cm] current page.south west)
+        -- ++(3,0) -- ([xshift=0cm, yshift=3cm] current page.south east)
+        -- ([xshift=0cm, yshift=0cm] current page.south east) -- cycle;
+\end{tikzpicture}
+
+\vspace*{1.5cm}
+
+% Logo institutionnel (décommenter si disponible)
+% \begin{center}
+%     \includegraphics[height=2.5cm]{figures/logo_ensp.png}
+% \end{center}
+
+\begin{center}
+    {\color{white!80!gray}\small\scshape
+        Université de Garoua~·~Faculté des Sciences~·~%
+        Département de Mathématiques-Informatique}\\[0.4ex]
+    {\color{CouleurAccent}\rule{0.55\linewidth}{0.8pt}}
+\end{center}
+
+\vspace{1.5cm}
+
+\begin{center}
+    {\color{white!60!gray}\footnotesize\scshape support de cours}\\[1ex]
+    {\color{white}\fontsize{30}{38}\selectfont\bfseries
+        Supervision, Analyse Forensique}\\[0.6ex]
+    {\color{white}\fontsize{30}{38}\selectfont\bfseries
+        et Gestion des Incidents}\\[1.5ex]
+    {\color{CouleurAccent}\Large\itshape
+        SOC~·~SIEM~·~IDS~·~Forensics~·~Réponse aux Incidents}
+\end{center}
+
+\vspace{1.8cm}
+
+\begin{center}
+    {\color{white!70!gray}\small
+        \ding{43}\quad Cas fil rouge : Entreprise LiZbiZ-SIS}\\[0.5ex]
+    {\color{white!70!gray}\small
+        \ding{44}\quad ISO 27035~·~ISO 27037~·~RFC 3227~·~NIST SP 800-86}\\[0.5ex]
+    {\color{white!70!gray}\small
+        \ding{228}\quad MITRE ATT\&CK~·~Kill Chain~·~Diamond Model~·~STIX/TAXII}\\[0.5ex]
+    {\color{white!70!gray}\small
+        \ding{228}\quad Loi Camerounaise 2010/012~·~Convention de Malabo}
+\end{center}
+
+\vfill
+
+\begin{center}
+    {\color{CouleurAccent}\rule{0.7\linewidth}{1.2pt}}\\[1.2ex]
+    {\color{white}\large\bfseries MINKA MI NGUIDJOÏ Thierry Emmanuel}\\[0.4ex]
+    {\color{white!80!gray}\small
+        CISA~·~CISM~·~CGEIT~·~CRISC~·~CDPSE~·~ISO 27001~·~ISO 22301~·~ISO 9001}\\[0.3ex]
+    {\color{white!70!gray}\footnotesize\itshape
+        Chercheur au Laboratoire d'Ingénierie Mathématiques et des Systèmes d'Information}\\[0.3ex]
+    {\color{white!70!gray}\footnotesize\itshape
+        Expert Judiciaire~—~Analyste Forensique~—~Auditeur Senior~—~Cryptographe}\\[1.2ex]
+    {\color{CouleurAccent}\rule{0.7\linewidth}{1.2pt}}
+\end{center}
+
+\vspace{0.6cm}
+
+\begin{center}
+    {\color{white!60!gray}\small Année académique 2025--2026}
+\end{center}
+
+\afterpage{\nopagecolor}
+\end{titlepage}
+
+
+% ------------------------------------------------------------------------------
+% 2. PAGE DE DROITS / VERSO DE COUVERTURE
+% ------------------------------------------------------------------------------
+\clearpage
+\thispagestyle{empty}
+\vspace*{\fill}
+
+\begin{center}
+    \begin{minipage}{0.78\textwidth}
+        \footnotesize\color{CouleurBordInfo}
+        \begin{center}
+            {\bfseries\color{CouleurPrimaire}
+                Supervision, Analyse Forensique et Gestion des Incidents}\\[0.4ex]
+            {\itshape SOC~·~SIEM~·~IDS~·~Forensics~·~Réponse aux Incidents}
+        \end{center}
+        \vspace{0.8ex}
+        \hrule
+        \vspace{0.8ex}
+        \textbf{Auteur :} MINKA MI NGUIDJOÏ Thierry Emmanuel\\
+        \textbf{Institution :} Université de Garoua — Faculté des Sciences — Département de Mathématiques-Informatique\\
+        \textbf{Code UE :} SIS589 — Niveau~5\\
+        \textbf{Année :} 2025--2026\\[0.5ex]
+        Ce document est un support de cours universitaire rédigé à des fins
+        pédagogiques. Toute reproduction partielle ou totale à des fins
+        commerciales est interdite sans l'autorisation écrite de l'auteur.
+        Les références à des produits, organisations ou normes sont citées
+        à titre pédagogique uniquement.\\[0.5ex]
+        Les certifications \textbf{CISA}, \textbf{CISM}, \textbf{CGEIT},
+        \textbf{CRISC} et \textbf{CDPSE} sont des marques déposées de
+        l'\textbf{ISACA}. \textbf{MITRE ATT\&CK} est une marque déposée
+        de The MITRE Corporation. \textbf{EBIOS RM} est une méthode
+        de l'\textbf{ANSSI}.\\[0.5ex]
+        \hrule
+        \vspace{0.5ex}
+        {\centering\itshape
+        «~Détecter sans comprendre, c'est voir sans regarder.
+        Investiguer sans rigueur, c'est chercher sans trouver.~»}
+    \end{minipage}
+\end{center}
+
+\vspace*{\fill}
+
+
+% ------------------------------------------------------------------------------
+% 3. DÉDICACE
+% ------------------------------------------------------------------------------
+\clearpage
+\thispagestyle{empty}
+\vspace*{3cm}
+\begin{flushright}
+    \begin{minipage}{0.62\textwidth}
+        \itshape\large\color{CouleurPrimaire}
+        À ceux qui, dans les salles obscures des SOC,\\
+        veillent quand les autres dorment.\\[1.5ex]
+        \normalsize\normalfont\color{CouleurAccent}
+        Et à tous les enquêteurs numériques en devenir\\
+        qui apprendront ici à lire les traces\\
+        avant que le temps ne les efface.
+    \end{minipage}
+\end{flushright}
+
+
+% ------------------------------------------------------------------------------
+% 4. REMERCIEMENTS
+% ------------------------------------------------------------------------------
+\clearpage
+\thispagestyle{empty}
+\chapter*{Remerciements}
+\addcontentsline{toc}{chapter}{Remerciements}
+
+La conception de ce cours s'appuie sur l'expérience conjuguée du praticien
+et du chercheur. L'auteur exprime sa profonde reconnaissance à tous les
+relecteurs, anonymes ou non, qui ont contribué à enrichir et à affiner
+chaque version de ce support.
+
+Ce cours a été nourri par des années de missions opérationnelles en
+investigation numérique, gestion d'incidents critiques et supervision
+de systèmes d'information dans des organisations publiques et privées
+au Cameroun et au-delà. La confrontation permanente entre théorie
+et terrain donne à ces pages leur ancrage dans la réalité.
+
+À nos étudiants du niveau~5, qui constitueront demain la première
+ligne de défense de nos systèmes d'information nationaux.
+
+
+% ------------------------------------------------------------------------------
+% 5. PRÉAMBULE PÉDAGOGIQUE
+% ------------------------------------------------------------------------------
+\clearpage
+\thispagestyle{empty}
+\chapter*{Préambule}
+\addcontentsline{toc}{chapter}{Préambule}
+
+\begin{boxinfo}
+\textbf{Prérequis recommandés :}
+\begin{itemize}
+    \item Réseaux informatiques : TCP/IP, protocoles, firewalls, segmentation VLAN.
+    \item Systèmes d'exploitation : administration Linux et Windows (niveau opérationnel).
+    \item Cours d'Audit des SI et/ou de Hacking Éthique fortement appréciés en préalable.
+    \item Notions de droit numérique : RGPD, responsabilité civile et pénale, cybercriminalité.
+\end{itemize}
+\end{boxinfo}
+
+\medskip
+
+Ce cours aborde la sécurité de l'information sous l'angle de la \textbf{réactivité
+opérationnelle} : détecter l'intrusion, en comprendre le déroulé, en préserver les
+traces et en coordonner la réponse. Ces quatre actes — \textit{détecter, investiguer,
+préserver, répondre} — constituent l'essence de la mission SIS589.
+
+Le cas fil rouge \textbf{LiZbiZ-SIS} (extension de l'entreprise LiZbiZ introduite
+dans les cours précédents) servira de terrain d'application systématique à chaque
+chapitre. Les laboratoires en fin de parcours consolideront les compétences
+sur environnements simulés (GNS3 / EVE-NG / SIFT Workstation).
+
+
+% ------------------------------------------------------------------------------
+% 6. TABLES
+% ------------------------------------------------------------------------------
+\clearpage
+\tableofcontents
+
+\clearpage
+\listoffigures
+\addcontentsline{toc}{chapter}{Liste des figures}
+
+\listoftables
+\addcontentsline{toc}{chapter}{Liste des tableaux}
+
+\lstlistoflistings
+\addcontentsline{toc}{chapter}{Liste des codes source}
+
+
+% ==============================================================================
+% CORPS DU COURS
+% ==============================================================================
+\mainmatter
+
+
+% ------------------------------------------------------------------------------
+% INTRODUCTION GÉNÉRALE
+% ------------------------------------------------------------------------------
+\input{chapters/00_introduction}
+
+
+% ============================================================
+% PARTIE I — SUPERVISION ET DÉTECTION
+% ============================================================
+\part{Supervision et Détection}
+
+% Chapitre 1 — Architecture SOC, métriques, gouvernance
+\input{chapters/01_supervision}
+
+% Chapitre 2 — Logs : collecte, normalisation, intégrité, corrélation
+\input{chapters/02_logs}
+
+% Chapitre 3 — IDS/IPS/NDR : signatures, anomalies, EDR, XDR
+\input{chapters/03_ids_ips}
+
+
+% ============================================================
+% PARTIE II — CADRE LÉGAL ET NORMATIF
+% ============================================================
+\part{Cadre Légal et Normatif}
+
+% Chapitre 4 — ISO 27035, RFC 3227, NIST SP 800-86,
+%              Loi 2010/012 du Cameroun, Convention de Malabo
+\input{chapters/04_cadre_legal}
+
+
+% ============================================================
+% PARTIE III — INVESTIGATION NUMÉRIQUE (FORENSICS)
+% ============================================================
+\part{Investigation Numérique}
+
+% Chapitre 5 — Fondements : ordre de volatilité, chaîne de custody,
+%              principes ACPO, admissibilité des preuves
+\input{chapters/05_forensics_fondements}
+
+% Chapitre 6 — Forensique système : disque, système de fichiers,
+%              artefacts Windows/Linux, timeline
+\input{chapters/06_forensics_systeme}
+
+% Chapitre 7 — Forensique mémoire, réseau et cloud
+\input{chapters/07_forensics_memoire_reseau}
+
+
+% ============================================================
+% PARTIE IV — RÉPONSE AUX INCIDENTS ET AMÉLIORATION CONTINUE
+% ============================================================
+\part{Réponse aux Incidents et Amélioration Continue}
+
+% Chapitre 8 — Cycle ISO 27035, CSIRT/CERT, Playbook, Runbook,
+%              MITRE ATT&CK, qualification des incidents
+\input{chapters/08_incident_response}
+
+% Chapitre 9 — Threat Intelligence : CTI, STIX/TAXII, IoC,
+%              Kill Chain, Diamond Model
+\input{chapters/09_threat_intelligence}
+
+% Chapitre 10 — RETEX, amélioration continue, métriques SOC
+\input{chapters/10_retex_amelioration}
+
+% Chapitre 11 — Évaluation finale et grille de compétences
+\input{chapters/11_evaluation}
+
+
+% ============================================================
+% TRAVAUX PRATIQUES IMMERSIFS
+% ============================================================
+\part{Travaux Pratiques Immersifs}
+
+% Lab 1 — Déploiement SIEM, corrélation d'événements, chasse aux alertes
+\input{labs/lab1_siem_detection}
+
+% Lab 2 — Acquisition d'image disque, analyse Autopsy / FTK Imager
+\input{labs/lab2_forensics_disque}
+
+% Lab 3 — Simulation Tabletop : scénario ransomware sur LiZbiZ-SIS
+\input{labs/lab3_incident_simulation}
+
+
+% ------------------------------------------------------------------------------
+% CONCLUSION GÉNÉRALE
+% ------------------------------------------------------------------------------
+\input{chapters/00_conclusion}
+
+
+% ==============================================================================
+% MATIÈRE POSTLIMINAIRE
+% ==============================================================================
+\backmatter
+
+% --- Bibliographie ---
+\clearpage
+\printbibliography[
+    heading=bibintoc,
+    title={Bibliographie et Références}
+]
+
+% --- À Propos de l'Auteur ---
+\clearpage
+\input{annexes/about_author}
+
+% --- Glossaire ---
+\clearpage
+% \printglossaries   % à activer après makeglossaries
+
+% --- Index ---
+\clearpage
+\printindex
+\addcontentsline{toc}{chapter}{Index}
+
+
+% ==============================================================================
+% ANNEXES
+% ==============================================================================
+\clearpage
+\appendix
+
+\input{annexes/tools}
+\input{annexes/templates}
+\input{annexes/glossary}
+
+
+% ==============================================================================
+% 4ÈME DE COUVERTURE
+% ==============================================================================
+\clearpage
+\thispagestyle{empty}
+\pagecolor{CouleurPrimaire}
+
+\begin{tikzpicture}[remember picture, overlay]
+    \fill[CouleurAccent]
+        (current page.south west) rectangle
+        ([yshift=1.8cm] current page.south east);
+    \fill[CouleurAccent]
+        ([yshift=-1.4cm] current page.north west) rectangle
+        ([yshift=-1.7cm] current page.north east);
+\end{tikzpicture}
+
+\vspace*{2.5cm}
+
+\begin{center}
+    {\color{CouleurAccent}\rule{0.6\linewidth}{1pt}}\\[1.5ex]
+    {\color{white}\Large\bfseries À propos de ce cours}\\[1.5ex]
+    {\color{CouleurAccent}\rule{0.6\linewidth}{1pt}}
+\end{center}
+
+\vspace{1cm}
+
+\begin{center}
+\begin{minipage}{0.75\textwidth}
+\color{white!85!gray}\setstretch{1.4}
+Ce cours constitue le maillon opérationnel de la chaîne de compétences en
+sécurité des systèmes d'information. Là où l'audit identifie et qualifie les
+risques, SIS589 forme à \textbf{détecter}, \textbf{investiguer} et \textbf{maîtriser}
+les incidents en temps réel.
+
+\medskip
+
+Articulé autour du triptyque \textit{SOC~/ Forensics~/ Incident Response},
+il couvre l'intégralité du cycle opérationnel~: supervision continue,
+analyse de logs, investigation numérique légale, réponse structurée aux
+incidents, renseignement sur la menace et retour d'expérience.
+
+\medskip
+
+Ancré dans les standards internationaux (ISO 27035, RFC 3227,
+NIST SP 800-86, MITRE ATT\&CK) et le cadre juridique camerounais
+(Loi 2010/012, Convention de Malabo), ce support s'adresse aux
+ingénieurs et spécialistes en cybersécurité de niveau~5 appelés à
+opérer dans des environnements réels et sous contrainte juridique.
+\end{minipage}
+\end{center}
+
+\vfill
+
+\begin{center}
+    {\color{CouleurAccent}\rule{0.7\linewidth}{1.2pt}}\\[1.2ex]
+    {\color{white}\large\bfseries MINKA MI NGUIDJOÏ Thierry Emmanuel}\\[0.4ex]
+    {\color{white!80!gray}\small
+        CISA~·~CISM~·~CGEIT~·~CRISC~·~CDPSE~·~ISO 27001~·~ISO 22301~·~ISO 9001}\\[0.3ex]
+    {\color{white!70!gray}\footnotesize\itshape
+        Chercheur au laboratoire d'Ingénierie Mathématiques et des Systèmes d'Information}\\[0.3ex]
+    {\color{white!70!gray}\footnotesize\itshape
+        Expert Judiciaire~—~Analyste Forensique~—~Auditeur Senior~—~Cryptographe}\\[1.2ex]
+    {\color{CouleurAccent}\rule{0.7\linewidth}{1.2pt}}
+\end{center}
+
+\vspace{1cm}
+
+\afterpage{\nopagecolor}
+
+\end{document}
+% ==============================================================================
+% Fin de main.tex — UE SIS589
+% ==============================================================================

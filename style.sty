@@ -1,0 +1,711 @@
+% ==============================================================================
+% Fichier     : style.sty
+% Titre       : Feuille de style — UE SIS589
+%               Supervision, Analyse Forensique et Gestion des Incidents
+% Auteur      : MINKA MI NGUIDJOÏ Thierry Emmanuel
+% Institution : Université de Garoua — Faculté des Sciences — Département de Mathématiques-Informatique
+% Année       : 2025-2026
+% Description : Adapté depuis Style_cours.sty (cours Audit SI).
+%               Palette chromatique distincte (bleu-marine / rouge-brique / or),
+%               environnements forensiques, boîtes spécialisées (IoC, chaîne
+%               de custody, alerte SIEM, scénario incident), commandes utilitaires
+%               SOC/CERT/forensics.
+% Compilateur : lualatex + biber (recommandé) ou pdflatex + biber
+% ==============================================================================
+
+\ProvidesPackage{style}[2026/03/15 Feuille de style SIS589]
+
+% ==============================================================================
+% I. PACKAGES REQUIS
+% ==============================================================================
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[provide=*,french]{babel}
+\RequirePackage{lmodern}
+\RequirePackage[protrusion=true,expansion=false]{microtype}
+
+% --- Mise en page ---
+\RequirePackage[
+    top=2.5cm, bottom=2.5cm,
+    left=2.8cm, right=2.5cm,
+    headheight=14pt
+]{geometry}
+
+% --- Couleurs ---
+\RequirePackage[dvipsnames, table]{xcolor}
+
+% --- Graphiques & Figures ---
+\RequirePackage{graphicx}
+\RequirePackage{float}
+\RequirePackage{wrapfig}
+\RequirePackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, shadows, calc,
+                mindmap, trees, decorations.pathmorphing}
+
+% --- Tableaux ---
+\RequirePackage{booktabs}
+\RequirePackage{longtable}
+\RequirePackage{tabularx}
+\RequirePackage{multirow}
+\RequirePackage{array}
+\RequirePackage{colortbl}
+
+% --- Mathématiques ---
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{amsthm}
+
+% --- Environnements décoratifs ---
+\RequirePackage[most]{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems, listings}
+
+% --- Listes ---
+\RequirePackage{enumitem}
+
+% --- Code source ---
+\RequirePackage{listings}
+\RequirePackage{lstautogobble}
+
+% --- En-têtes et pieds de page ---
+\RequirePackage{fancyhdr}
+
+% --- Hyperréférences ---
+\RequirePackage[
+    colorlinks=true,
+    linkcolor=CouleurPrimaire,
+    urlcolor=CouleurSecondaire,
+    citecolor=CouleurAccent,
+    bookmarks=true,
+    bookmarksnumbered=true,
+    pdfauthor={MINKA MI NGUIDJOÏ Thierry Emmanuel},
+    pdftitle={Supervision, Analyse Forensique et Gestion des Incidents}
+]{hyperref}
+
+% --- Bibliographie ---
+\RequirePackage[
+    backend=biber,
+    style=ieee,
+    sorting=nyt
+]{biblatex}
+
+% --- Index ---
+\RequirePackage{makeidx}
+\makeindex
+
+% --- Glossaires ---
+\RequirePackage[toc, acronym]{glossaries}
+
+% --- Divers ---
+\RequirePackage{epigraph}
+\RequirePackage{pifont}
+\RequirePackage{marvosym}
+\RequirePackage{setspace}
+\RequirePackage{pdflscape}
+\RequirePackage{afterpage}
+\RequirePackage{fontawesome5}   % icônes shield, bug, search, etc.
+
+
+% ==============================================================================
+% II. PALETTE CHROMATIQUE — SIS589
+%     Identité visuelle distincte du cours Audit SI (bleu-marine/or)
+%     Ici : bleu nuit profond / rouge-brique sécurité / or opérationnel
+% ==============================================================================
+
+% Couleurs institutionnelles
+\definecolor{CouleurPrimaire}{RGB}{10, 30, 70}        % Bleu nuit profond (SOC/CERT)
+\definecolor{CouleurSecondaire}{RGB}{0, 90, 160}      % Bleu opérationnel
+\definecolor{CouleurAccent}{RGB}{185, 55, 40}         % Rouge-brique (alerte/incident)
+\definecolor{CouleurOr}{RGB}{196, 142, 0}             % Or institutionnel
+\definecolor{CouleurTexte}{RGB}{25, 25, 25}           % Quasi-noir
+
+% Couleurs fonctionnelles — boîtes pédagogiques
+\definecolor{CouleurDef}{RGB}{230, 240, 255}          % Bleu très clair (définitions)
+\definecolor{CouleurBordDef}{RGB}{0, 90, 160}         % Bleu opérationnel
+
+\definecolor{CouleurAlerte}{RGB}{255, 235, 230}       % Fond rouge pâle (incident)
+\definecolor{CouleurBordAlerte}{RGB}{185, 55, 40}     % Rouge-brique
+
+\definecolor{CouleurForensic}{RGB}{240, 255, 245}     % Fond vert menthe (forensics)
+\definecolor{CouleurBordForensic}{RGB}{20, 140, 80}   % Vert forêt
+
+\definecolor{CouleurSiem}{RGB}{255, 250, 220}         % Fond ambre (alerte SIEM)
+\definecolor{CouleurBordSiem}{RGB}{180, 130, 0}       % Or foncé
+
+\definecolor{CouleurLizbiz}{RGB}{230, 255, 236}       % Vert clair (cas fil rouge)
+\definecolor{CouleurBordLizbiz}{RGB}{34, 139, 34}     % Vert forêt
+
+\definecolor{CouleurInfo}{RGB}{245, 245, 248}         % Gris très clair (notes)
+\definecolor{CouleurBordInfo}{RGB}{110, 110, 130}     % Gris bleuté
+
+\definecolor{CouleurCode}{RGB}{18, 24, 38}            % Fond sombre (terminal)
+\definecolor{CouleurBordCode}{RGB}{0, 120, 200}       % Bleu acier
+
+\definecolor{CouleurCustody}{RGB}{255, 248, 230}      % Fond crème (chaîne custody)
+\definecolor{CouleurBordCustody}{RGB}{150, 100, 20}   % Brun doré
+
+% Couleurs de tableau
+\definecolor{TableauPair}{RGB}{240, 244, 252}
+\definecolor{TableauImpair}{RGB}{255, 255, 255}
+\definecolor{TableauEntete}{RGB}{10, 30, 70}
+
+
+% ==============================================================================
+% III. POLICES ET TYPOGRAPHIE
+% ==============================================================================
+
+\setstretch{1.15}
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{0.4ex}
+
+
+% ==============================================================================
+% IV. STYLES DE CHAPITRES ET SECTIONS
+% ==============================================================================
+
+\RequirePackage{titlesec}
+\RequirePackage{titletoc}
+
+% --- Chapitre : bloc bleu nuit avec numéro blanc, titre en majuscules ---
+\titleformat{\chapter}[display]
+    {\normalfont\bfseries\color{CouleurPrimaire}}
+    {%
+        \filleft
+        \begin{tikzpicture}
+            \fill[CouleurPrimaire] (0,0) rectangle (1.2,1.2);
+            \fill[CouleurAccent]   (0,0) rectangle (1.2,0.12);
+            \node[white, font=\fontsize{28}{28}\selectfont\bfseries]
+                at (0.6,0.66) {\thechapter};
+        \end{tikzpicture}
+    }
+    {-0.5ex}
+    {\filright\fontsize{18}{22}\selectfont\MakeUppercase}
+    [\vspace{0.5ex}{\color{CouleurAccent}\titlerule[2pt]}\vspace{1ex}]
+
+\titlespacing*{\chapter}{0pt}{10pt}{25pt}
+
+% --- Section ---
+\titleformat{\section}
+    {\normalfont\large\bfseries\color{CouleurPrimaire}}
+    {\colorbox{CouleurPrimaire}{\color{white}\,\thesection\,}}
+    {0.7em}
+    {}
+    [\vspace{-0.4ex}{\color{CouleurSecondaire}\titlerule[0.8pt]}]
+
+\titlespacing*{\section}{0pt}{1.4ex plus 0.5ex}{0.8ex plus 0.3ex}
+
+% --- Sous-section ---
+\titleformat{\subsection}
+    {\normalfont\normalsize\bfseries\color{CouleurSecondaire}}
+    {\thesubsection}
+    {0.6em}
+    {}
+
+\titlespacing*{\subsection}{0pt}{1.2ex plus 0.4ex}{0.5ex plus 0.2ex}
+
+% --- Sous-sous-section ---
+\titleformat{\subsubsection}
+    {\normalfont\normalsize\itshape\color{CouleurOr}}
+    {\thesubsubsection}
+    {0.5em}
+    {}
+
+\titlespacing*{\subsubsection}{0pt}{0.8ex plus 0.3ex}{0.3ex plus 0.1ex}
+
+
+% ==============================================================================
+% V. EN-TÊTES ET PIEDS DE PAGE
+% ==============================================================================
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{%
+    \color{CouleurPrimaire}\hrule width\headwidth height\headrulewidth}
+\renewcommand{\footrule}{%
+    \color{CouleurAccent}\hrule width\headwidth height\footrulewidth}
+
+\fancyhead[LE]{\small\color{CouleurPrimaire}\leftmark}
+\fancyhead[RO]{\small\color{CouleurPrimaire}\rightmark}
+\fancyhead[LO,RE]{\small\color{CouleurOr}\textit{UE: SIS589}}
+
+\fancyfoot[C]{\small\color{CouleurPrimaire}\thepage}
+\fancyfoot[LE,RO]{\small\color{CouleurTexte}%
+    \textit{Supervision, Forensique \& Gestion des Incidents}}
+
+% Pages de début de chapitre
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \fancyfoot[C]{\small\color{CouleurPrimaire}\thepage}
+    \fancyfoot[LE,RO]{\small\color{CouleurTexte}%
+        \textit{Préparé par Thierry MINKA}}
+}
+
+
+% ==============================================================================
+% VI. TABLE DES MATIÈRES
+% ==============================================================================
+
+\contentsmargin{0pt}
+
+\titlecontents{chapter}
+    [1.5em]
+    {\addvspace{1ex}\bfseries\color{CouleurPrimaire}}
+    {\contentslabel{1.5em}}
+    {\hspace*{-1.5em}}
+    {\hfill\contentspage}
+    [\addvspace{0.3ex}]
+
+\titlecontents{section}
+    [3.8em]
+    {\small}
+    {\contentslabel{2.3em}}
+    {\hspace*{-2.3em}}
+    {\ \titlerule*[0.5pc]{.}\contentspage}
+
+\titlecontents{subsection}
+    [6.5em]
+    {\footnotesize\color{CouleurBordInfo}}
+    {\contentslabel{3em}}
+    {\hspace*{-3em}}
+    {\ \titlerule*[0.5pc]{.}\contentspage}
+
+
+% ==============================================================================
+% VII. ENVIRONNEMENTS TCOLORBOX PERSONNALISÉS
+% ==============================================================================
+
+% --- A. Définition ---
+\newtcolorbox{boxdef}[1][]{
+    enhanced, breakable,
+    colback=CouleurDef,
+    colframe=CouleurBordDef,
+    fonttitle=\bfseries\color{white},
+    title={$\blacksquare$\quad Définition},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=CouleurBordDef, rounded corners},
+    arc=3pt, boxrule=0.8pt,
+    left=6pt, right=6pt, top=8pt, bottom=6pt,
+    #1
+}
+
+% --- B. Alerte / Incident critique ---
+\newtcolorbox{boxalert}[1][]{
+    enhanced, breakable,
+    colback=CouleurAlerte,
+    colframe=CouleurBordAlerte,
+    fonttitle=\bfseries\color{white},
+    title={\ding{72}\quad Incident / Alerte},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=CouleurBordAlerte, rounded corners},
+    arc=3pt, boxrule=0.8pt,
+    left=6pt, right=6pt, top=8pt, bottom=6pt,
+    #1
+}
+
+% --- C. Cas pratique LiZbiZ (fil rouge) ---
+\newtcolorbox{boxlizbiz}[1][]{
+    enhanced, breakable,
+    colback=CouleurLizbiz,
+    colframe=CouleurBordLizbiz,
+    fonttitle=\bfseries\color{white},
+    title={\ding{110}\quad Cas Pratique — LiZbiZ-SIS},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=CouleurBordLizbiz, rounded corners},
+    arc=3pt, boxrule=0.8pt,
+    left=6pt, right=6pt, top=8pt, bottom=6pt,
+    #1
+}
+
+% --- D. Note / Information ---
+\newtcolorbox{boxinfo}[1][]{
+    enhanced, breakable,
+    colback=CouleurInfo,
+    colframe=CouleurBordInfo,
+    fonttitle=\bfseries,
+    title={\ding{108}\quad Note},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=CouleurBordInfo, rounded corners},
+    arc=3pt, boxrule=0.6pt,
+    left=6pt, right=6pt, top=8pt, bottom=6pt,
+    #1
+}
+
+% --- E. Objectifs du chapitre ---
+\newtcolorbox{boxobjectifs}[1][]{
+    enhanced, breakable,
+    colback=white,
+    colframe=CouleurPrimaire,
+    fonttitle=\bfseries\color{white},
+    title={\ding{70}\quad Objectifs du chapitre},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=CouleurPrimaire, rounded corners},
+    arc=4pt, boxrule=1.2pt,
+    left=8pt, right=8pt, top=10pt, bottom=8pt,
+    #1
+}
+
+% --- F. Résumé / À retenir ---
+\newtcolorbox{boxresume}[1][]{
+    enhanced, breakable,
+    colback=white,
+    colframe=CouleurOr,
+    fonttitle=\bfseries\color{white},
+    title={\ding{72}\quad À retenir},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=CouleurOr, rounded corners},
+    arc=3pt, boxrule=0.8pt,
+    left=6pt, right=6pt, top=8pt, bottom=6pt,
+    #1
+}
+
+% --- G. Exercice / TP ---
+\newtcolorbox{boxexo}[1][]{
+    enhanced, breakable,
+    colback=white,
+    colframe=CouleurSecondaire,
+    fonttitle=\bfseries\color{white},
+    title={\ding{45}\quad Exercice / TP},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=CouleurSecondaire, rounded corners},
+    arc=3pt, boxrule=0.8pt,
+    left=6pt, right=6pt, top=8pt, bottom=6pt,
+    #1
+}
+
+% --- H. Théorème / Principe formel ---
+\newtcolorbox{boiteTheoreme}[2][]{
+    enhanced,
+    attach boxed title to top left={xshift=4mm, yshift=-3mm},
+    fonttitle=\bfseries\scshape,
+    colbacktitle=CouleurPrimaire,
+    colframe=CouleurPrimaire,
+    colback=CouleurDef,
+    coltitle=white,
+    boxrule=0.8pt, arc=3pt,
+    boxed title style={colframe=CouleurPrimaire, arc=3pt, boxrule=0.8pt},
+    title=\strut #2, #1
+}
+
+% --- I. Remarque / Nuance ---
+\newtcolorbox{boiteRemarque}[2][]{
+    enhanced,
+    attach boxed title to top left={xshift=4mm, yshift=-3mm},
+    fonttitle=\bfseries\scshape,
+    colbacktitle=CouleurOr,
+    colframe=CouleurOr,
+    colback=CouleurSiem,
+    coltitle=white,
+    boxrule=0.8pt, arc=3pt,
+    boxed title style={colframe=CouleurOr, arc=3pt, boxrule=0.8pt},
+    title=\strut #2, #1
+}
+
+% --- J. [NOUVEAU] Alerte SIEM — trace d'événement normalisé ---
+\newtcolorbox{boxsiem}[1][]{
+    enhanced, breakable,
+    colback=CouleurSiem,
+    colframe=CouleurBordSiem,
+    fonttitle=\bfseries\color{white},
+    title={\faShieldAlt\quad Alerte SIEM},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=CouleurBordSiem, rounded corners},
+    arc=3pt, boxrule=0.8pt,
+    left=6pt, right=6pt, top=8pt, bottom=6pt,
+    #1
+}
+
+% --- K. [NOUVEAU] Chaîne de custody (scellé numérique) ---
+\newtcolorbox{boxcustody}[1][]{
+    enhanced, breakable,
+    colback=CouleurCustody,
+    colframe=CouleurBordCustody,
+    fonttitle=\bfseries\color{white},
+    title={\faLock\quad Chaîne de Custody},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=CouleurBordCustody, rounded corners},
+    arc=3pt, boxrule=0.8pt,
+    left=6pt, right=6pt, top=8pt, bottom=6pt,
+    #1
+}
+
+% --- L. [NOUVEAU] Indicateur de Compromission (IoC) ---
+\newtcolorbox{boxioc}[1][]{
+    enhanced, breakable,
+    colback=CouleurForensic,
+    colframe=CouleurBordForensic,
+    fonttitle=\bfseries\color{white},
+    title={\faBug\quad Indicateur de Compromission (IoC)},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=CouleurBordForensic, rounded corners},
+    arc=3pt, boxrule=0.8pt,
+    left=6pt, right=6pt, top=8pt, bottom=6pt,
+    #1
+}
+
+% --- M. [NOUVEAU] Playbook / Runbook procédural ---
+\newtcolorbox{boxplaybook}[1][]{
+    enhanced, breakable,
+    colback=white,
+    colframe=CouleurAccent,
+    fonttitle=\bfseries\color{white},
+    title={\faClipboardList\quad Playbook},
+    attach boxed title to top left={yshift=-2mm, xshift=4mm},
+    boxed title style={colback=CouleurAccent, rounded corners},
+    arc=3pt, boxrule=0.8pt,
+    left=6pt, right=6pt, top=8pt, bottom=6pt,
+    #1
+}
+
+
+% ==============================================================================
+% VIII. STYLE DE CODE SOURCE — TERMINAL SOMBRE (forensics / shell / python)
+% ==============================================================================
+
+% Style terminal sombre (Bash, commandes forensiques)
+\lstdefinestyle{StyleTerminal}{
+    backgroundcolor=\color{CouleurCode},
+    basicstyle=\ttfamily\footnotesize\color{green!80!white},
+    keywordstyle=\bfseries\color{cyan!80!white},
+    commentstyle=\itshape\color{gray!60},
+    stringstyle=\color{yellow!80!white},
+    numberstyle=\tiny\color{gray!50},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=8pt,
+    showspaces=false,
+    showstringspaces=false,
+    tabsize=4,
+    frame=single,
+    frameround=tttt,
+    rulecolor=\color{CouleurBordCode},
+    autogobble=true,
+    xleftmargin=12pt, xrightmargin=4pt,
+    aboveskip=8pt, belowskip=6pt,
+    literate=
+        {é}{{\'e}}1 {è}{{\`e}}1 {ê}{{\^e}}1 {ë}{{\"e}}1
+        {à}{{\`a}}1 {â}{{\^a}}1 {ç}{{\c{c}}}1 {ù}{{\`u}}1
+        {û}{{\^u}}1 {î}{{\^i}}1 {ô}{{\^o}}1
+}
+
+% Style clair standard (Python, YAML, configuration)
+\lstdefinestyle{StyleCode}{
+    backgroundcolor=\color{gray!5},
+    basicstyle=\ttfamily\footnotesize\color{CouleurTexte},
+    keywordstyle=\bfseries\color{CouleurSecondaire},
+    commentstyle=\itshape\color{gray!70},
+    stringstyle=\color{CouleurBordAlerte},
+    numberstyle=\tiny\color{gray},
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=8pt,
+    showspaces=false,
+    showstringspaces=false,
+    tabsize=4,
+    frame=single,
+    frameround=tttt,
+    rulecolor=\color{CouleurBordCode},
+    autogobble=true,
+    xleftmargin=12pt, xrightmargin=4pt,
+    aboveskip=8pt, belowskip=6pt,
+    literate=
+        {é}{{\'e}}1 {è}{{\`e}}1 {ê}{{\^e}}1 {ë}{{\"e}}1
+        {à}{{\`a}}1 {â}{{\^a}}1 {ç}{{\c{c}}}1 {ù}{{\`u}}1
+        {û}{{\^u}}1 {î}{{\^i}}1 {ô}{{\^o}}1
+}
+
+\lstset{style=StyleCode}
+
+% Langages spéciaux
+\lstdefinelanguage{YAML}{
+    keywords={true, false, null, yes, no},
+    sensitive=false,
+    morecomment=[l]{\#},
+    morestring=[b]',
+    morestring=[b]"
+}
+
+\lstdefinelanguage{SQL}{
+    keywords={SELECT,FROM,WHERE,AND,OR,NOT,INSERT,INTO,VALUES,
+              UPDATE,SET,DELETE,CREATE,TABLE,ALTER,DROP,INDEX,
+              JOIN,LEFT,RIGHT,INNER,OUTER,ON,GROUP,BY,ORDER,
+              HAVING,AS,DISTINCT,UNION,ALL,IN,EXISTS,LIKE,
+              IS,NULL,BETWEEN,CASE,WHEN,THEN,ELSE,END,
+              PRIMARY,KEY,FOREIGN,REFERENCES,UNIQUE,CHECK,
+              DATABASE,USE,SHOW,DESCRIBE,GRANT,REVOKE},
+    sensitive=false,
+    morecomment=[l]{--},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]',
+    morestring=[b]"
+}
+
+
+% ==============================================================================
+% IX. LISTES PERSONNALISÉES
+% ==============================================================================
+
+\setlist[itemize,1]{
+    leftmargin=1.8em,
+    label={\color{CouleurAccent}\ding{227}},
+    itemsep=0.3ex
+}
+\setlist[itemize,2]{
+    leftmargin=1.5em,
+    label={\color{CouleurSecondaire}$\triangleright$},
+    itemsep=0.2ex
+}
+\setlist[itemize,3]{
+    leftmargin=1.2em,
+    label={\color{CouleurOr}$\bullet$},
+    itemsep=0.1ex
+}
+
+\setlist[enumerate,1]{
+    leftmargin=2em,
+    label={\color{CouleurPrimaire}\bfseries\arabic*.},
+    itemsep=0.3ex
+}
+\setlist[enumerate,2]{
+    leftmargin=1.8em,
+    label={\color{CouleurSecondaire}\alph*)},
+    itemsep=0.2ex
+}
+
+
+% ==============================================================================
+% X. STYLE DES TABLEAUX
+% ==============================================================================
+
+\newcommand{\tableauHeader}[1]{%
+    \rowcolor{TableauEntete}\color{white}\bfseries #1
+}
+\newcommand{\ligneTableau}[1]{%
+    \rowcolor{TableauPair} #1
+}
+
+\newenvironment{tableaucours}[2]{%
+    \begin{table}[htbp]
+    \centering
+    \small
+    \rowcolors{2}{TableauPair}{TableauImpair}
+    \begin{tabular}{#1}
+    \toprule
+    #2
+    \midrule
+}{%
+    \bottomrule
+    \end{tabular}
+    \end{table}
+}
+
+
+% ==============================================================================
+% XI. COMMANDES UTILITAIRES
+% ==============================================================================
+
+% Terme clé indexé automatiquement
+\newcommand{\termecle}[1]{%
+    \textbf{\color{CouleurPrimaire}#1}\index{#1}%
+}
+
+% Sigle / acronyme
+\newcommand{\sigle}[1]{\textsc{#1}}
+
+% Note de marge
+\newcommand{\notemarge}[1]{%
+    \marginpar{\footnotesize\color{CouleurBordInfo}\itshape #1}%
+}
+
+% Icônes de niveau de compétence
+\newcommand{\niveaubase}{\textcolor{green!60!black}{\ding{72}\ding{73}\ding{73}}}
+\newcommand{\niveaumoyen}{\textcolor{orange}{\ding{72}\ding{72}\ding{73}}}
+\newcommand{\niveauexpert}{\textcolor{red!70!black}{\ding{72}\ding{72}\ding{72}}}
+
+% Référence normative
+\newcommand{\norme}[1]{\textbf{\color{CouleurOr}[#1]}}
+
+% Séparateur décoratif
+\newcommand{\separateur}{%
+    \begin{center}
+        \color{CouleurOr}
+        \rule{0.4\linewidth}{0.4pt}\quad
+        \ding{109}\quad
+        \rule{0.4\linewidth}{0.4pt}
+    \end{center}
+    \vspace{0.5ex}
+}
+
+% Hash d'empreinte forensique (affichage monospace coloré)
+\newcommand{\hash}[2]{%
+    \texttt{\color{CouleurBordForensic}\small #1:\,#2}%
+}
+
+% Estampille temporelle (timestamp)
+\newcommand{\timestamp}[1]{%
+    \texttt{\color{CouleurSecondaire}\small[#1]}%
+}
+
+% Gravité d'incident (CVSS-like)
+\newcommand{\gravite}[1]{%
+    \ifthenelse{\equal{#1}{critique}}%
+        {\colorbox{CouleurBordAlerte}{\color{white}\bfseries\small CRITIQUE}}{}%
+    \ifthenelse{\equal{#1}{haute}}%
+        {\colorbox{orange}{\color{white}\bfseries\small HAUTE}}{}%
+    \ifthenelse{\equal{#1}{moyenne}}%
+        {\colorbox{CouleurOr}{\color{white}\bfseries\small MOYENNE}}{}%
+    \ifthenelse{\equal{#1}{basse}}%
+        {\colorbox{green!60!black}{\color{white}\bfseries\small BASSE}}{}%
+}
+
+% Commande auteur / institution
+\newcommand{\auteurcours}{MINKA MI NGUIDJOÏ Thierry Emmanuel}
+\newcommand{\institutionprimaire}{Université de Yaoundé I — ENSP}
+\newcommand{\unitepedago}{Département de Génie Informatique}
+\newcommand{\anneescolaire}{2025--2026}
+\newcommand{\codeue}{SIS589}
+
+
+% ==============================================================================
+% XII. ENVIRONNEMENTS MATHÉMATIQUES
+% ==============================================================================
+
+\RequirePackage{ifthen}
+
+\theoremstyle{definition}
+\newtheorem{theoreme}{Théorème}[chapter]
+\newtheorem{definition}{Définition}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{corollaire}{Corollaire}[chapter]
+\newtheorem{lemme}{Lemme}[chapter]
+
+\theoremstyle{remark}
+\newtheorem{remarque}{Remarque}[chapter]
+\newtheorem{exemple}{Exemple}[chapter]
+
+
+% ==============================================================================
+% XIII. PARAMÈTRES FINAUX
+% ==============================================================================
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\hyphenpenalty=800
+\exhyphenpenalty=800
+
+\color{CouleurTexte}
+
+\endinput
+% ==============================================================================
+% Fin de style.sty — UE SIS589
+% ==============================================================================
